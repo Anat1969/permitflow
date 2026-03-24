@@ -3,9 +3,12 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
-import { AuthProvider, useAuth } from '@/lib/AuthContext';
-import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-// Add page imports here
+import AppLayout from './components/AppLayout';
+import Dashboard from './pages/Dashboard';
+import Permits from './pages/Permits';
+import PermitNew from './pages/PermitNew';
+import PermitDetail from './pages/PermitDetail';
+import Standards from './pages/Standards';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -33,7 +36,13 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
-      {/* Add your page Route elements here */}
+      <Route element={<AppLayout />}>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/permits" element={<Permits />} />
+        <Route path="/permits/new" element={<PermitNew />} />
+        <Route path="/permits/:id" element={<PermitDetail />} />
+        <Route path="/standards" element={<Standards />} />
+      </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
