@@ -6,7 +6,7 @@ import { supabase } from './supabase';
 
 function makeEntity(tableName) {
   return {
-    async list(orderBy = 'created_date', limit = 500) {
+    async list(orderBy = '-created_at', limit = 500) {
       const col = orderBy.startsWith('-') ? orderBy.slice(1) : orderBy;
       const asc = !orderBy.startsWith('-');
       const { data, error } = await supabase
@@ -18,7 +18,7 @@ function makeEntity(tableName) {
       return data || [];
     },
 
-    async filter(filters = {}, orderBy = '-created_date', limit = 500) {
+    async filter(filters = {}, orderBy = '-created_at', limit = 500) {
       const col = orderBy.startsWith('-') ? orderBy.slice(1) : orderBy;
       const asc = !orderBy.startsWith('-');
       let query = supabase.from(tableName).select('*');
