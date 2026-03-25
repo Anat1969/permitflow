@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { base44 } from "@/api/base44Client";
+import { db } from "@/lib/db";
 import TopNav from "@/components/layout/TopNav";
 import { Plus, Search, Trash2, ExternalLink, ArrowRight } from "lucide-react";
 
@@ -13,12 +13,12 @@ export default function PlanInstructions() {
   const [form, setForm] = useState({ quarter: "", plan_name: "", instructions_url: "", note: "" });
 
   useEffect(() => {
-    base44.entities.Tabaot.list().then(d => { setList(d); setLoading(false); });
+    db.Tabaot.list().then(d => { setList(d); setLoading(false); });
   }, []);
 
   const add = async () => {
     if (!form.plan_name) return;
-    const item = await base44.entities.Tabaot.create(form);
+    const item = await db.Tabaot.create(form);
     setList(p => [...p, item]);
     setForm({ quarter: "", plan_name: "", instructions_url: "", note: "" });
     setShowForm(false);
@@ -26,7 +26,7 @@ export default function PlanInstructions() {
 
   const del = async (id) => {
     if (!confirm("למחוק?")) return;
-    await base44.entities.Tabaot.delete(id);
+    await db.Tabaot.delete(id);
     setList(p => p.filter(x => x.id !== id));
   };
 

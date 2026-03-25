@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { X, Plus, Trash2, Search } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { db } from "@/lib/db";
 import StatusBadge from "@/components/common/StatusBadge";
 import { STATUS_CONFIG, getToday, addHistoryEntry } from "@/utils/projectConfig";
 
@@ -16,9 +16,9 @@ export default function ProjectPanel({ domainCfg, category, sub, onClose, onRefr
     setLoading(true);
     let data;
     if (isBinui) {
-      data = await base44.entities.BinuiProject.filter({ category, sub });
+      data = await db.BinuiProject.filter({ category, sub });
     } else {
-      data = await base44.entities.GenericProject.filter({ domain: domainCfg.domain, category, sub });
+      data = await db.GenericProject.filter({ domain: domainCfg.domain, category, sub });
     }
     setProjects(data);
     setLoading(false);
@@ -33,9 +33,9 @@ export default function ProjectPanel({ domainCfg, category, sub, onClose, onRefr
     const history = addHistoryEntry([], "נוצר");
     let item;
     if (isBinui) {
-      item = await base44.entities.BinuiProject.create({ name: fullName, category, sub, status: "planning", created: today, history });
+      item = await db.BinuiProject.create({ name: fullName, category, sub, status: "planning", created: today, history });
     } else {
-      item = await base44.entities.GenericProject.create({ name: fullName, domain: domainCfg.domain, category, sub, status: "planning", created: today, history });
+      item = await db.GenericProject.create({ name: fullName, domain: domainCfg.domain, category, sub, status: "planning", created: today, history });
     }
     setProjects(p => [...p, item]);
     setNewName("");
@@ -44,8 +44,8 @@ export default function ProjectPanel({ domainCfg, category, sub, onClose, onRefr
 
   const deleteProject = async (id) => {
     if (!confirm("למחוק פרויקט זה?")) return;
-    if (isBinui) { await base44.entities.BinuiProject.delete(id); }
-    else { await base44.entities.GenericProject.delete(id); }
+    if (isBinui) { await db.BinuiProject.delete(id); }
+    else { await db.GenericProject.delete(id); }
     setProjects(p => p.filter(x => x.id !== id));
     onRefresh?.();
   };
@@ -53,8 +53,8 @@ export default function ProjectPanel({ domainCfg, category, sub, onClose, onRefr
   const changeStatus = async (id, status) => {
     const proj = projects.find(p => p.id === id);
     const history = addHistoryEntry(proj?.history || [], `סטטוס שונה ל: ${STATUS_CONFIG[status]?.label}`);
-    if (isBinui) { await base44.entities.BinuiProject.update(id, { status, history }); }
-    else { await base44.entities.GenericProject.update(id, { status, history }); }
+    if (isBinui) { await db.BinuiProject.update(id, { status, history }); }
+    else { await db.GenericProject.update(id, { status, history }); }
     setProjects(p => p.map(x => x.id === id ? { ...x, status, history } : x));
     onRefresh?.();
   };

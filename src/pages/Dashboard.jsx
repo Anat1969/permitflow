@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { base44 } from "@/api/base44Client";
+import { db } from "@/lib/db";
 import TopNav from "@/components/layout/TopNav";
 import StatsBar from "@/components/dashboard/StatsBar";
 import DomainCard from "@/components/dashboard/DomainCard";
@@ -15,8 +15,8 @@ export default function Dashboard() {
 
   const load = useCallback(async () => {
     const [bp, gp] = await Promise.all([
-      base44.entities.BinuiProject.list(),
-      base44.entities.GenericProject.list(),
+      db.BinuiProject.list(),
+      db.GenericProject.list(),
     ]);
     setBinuiProjects(bp);
     setGenericProjects(gp);

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { base44 } from "@/api/base44Client";
+import { db } from "@/lib/db";
 import TopNav from "@/components/layout/TopNav";
 import StatusBadge from "@/components/common/StatusBadge";
 import { STATUS_CONFIG, getToday, addHistoryEntry } from "@/utils/projectConfig";
@@ -24,8 +24,8 @@ export default function ProjectListPage({ domainCfg }) {
   const load = useCallback(async () => {
     setLoading(true);
     let data;
-    if (isBinui) { data = await base44.entities.BinuiProject.list(); }
-    else { data = await base44.entities.GenericProject.filter({ domain: domainCfg.domain }); }
+    if (isBinui) { data = await db.BinuiProject.list(); }
+    else { data = await db.GenericProject.filter({ domain: domainCfg.domain }); }
     setProjects(data);
     setLoading(false);
   }, [domainCfg]);
@@ -39,9 +39,9 @@ export default function ProjectListPage({ domainCfg }) {
     const history = addHistoryEntry([], "נוצר");
     let item;
     if (isBinui) {
-      item = await base44.entities.BinuiProject.create({ name: fullName, category: newCat, sub: newSub, status: "planning", created: today, history });
+      item = await db.BinuiProject.create({ name: fullName, category: newCat, sub: newSub, status: "planning", created: today, history });
     } else {
-      item = await base44.entities.GenericProject.create({ name: fullName, domain: domainCfg.domain, category: newCat, sub: newSub, status: "planning", created: today, history });
+      item = await db.GenericProject.create({ name: fullName, domain: domainCfg.domain, category: newCat, sub: newSub, status: "planning", created: today, history });
     }
     navigate(isBinui ? `/binui/${item.id}` : `/${domainCfg.route.slice(1)}/${item.id}`);
   };

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
+import { db } from "@/lib/db";
 import TopNav from "@/components/layout/TopNav";
 import StatusBadge from "@/components/common/StatusBadge";
 import { STATUS_CONFIG, getToday, addHistoryEntry } from "@/utils/projectConfig";
@@ -28,8 +29,8 @@ export default function BinuiDetail() {
 
   useEffect(() => {
     Promise.all([
-      base44.entities.BinuiProject.filter({ id }),
-      base44.entities.ProjectAttachment.filter({ project_type: "binui", project_id: id }),
+      db.BinuiProject.filter({ id }),
+      db.ProjectAttachment.filter({ project_type: "binui", project_id: id }),
     ]).then(([projs, atts]) => {
       setProj(projs[0] || null);
       setAttachments(atts);
@@ -42,7 +43,7 @@ export default function BinuiDetail() {
   const save = async () => {
     setSaving(true);
     const history = addHistoryEntry(proj.history || [], "עודכן");
-    await base44.entities.BinuiProject.update(id, { ...proj, history });
+    await db.BinuiProject.update(id, { ...proj, history });
     setProj(p => ({ ...p, history }));
     setSaving(false);
   };
@@ -60,25 +61,25 @@ export default function BinuiDetail() {
     const file = e.target.files[0];
     if (!file) return;
     const { file_url } = await base44.integrations.Core.UploadFile({ file });
-    const att = await base44.entities.ProjectAttachment.create({ project_type: "binui", project_id: id, name: file.name, file_url });
+    const att = await db.ProjectAttachment.create({ project_type: "binui", project_id: id, name: file.name, file_url });
     setAttachments(p => [...p, att]);
   };
 
   const deleteAtt = async (attId) => {
     if (!confirm("למחוק?")) return;
-    await base44.entities.ProjectAttachment.delete(attId);
+    await db.ProjectAttachment.delete(attId);
     setAttachments(p => p.filter(a => a.id !== attId));
   };
 
   const changeStatus = async (status) => {
     const history = addHistoryEntry(proj.history || [], `סטטוס שונה ל: ${STATUS_CONFIG[status]?.label}`);
-    await base44.entities.BinuiProject.update(id, { status, history });
+    await db.BinuiProject.update(id, { status, history });
     setProj(p => ({ ...p, status, history }));
   };
 
   const deleteProject = async () => {
     if (!confirm("למחוק פרויקט זה לצמיתות?")) return;
-    await base44.entities.BinuiProject.delete(id);
+    await db.BinuiProject.delete(id);
     navigate("/binui");
   };
 

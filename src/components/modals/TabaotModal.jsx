@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { base44 } from "@/api/base44Client";
+import { db } from "@/lib/db";
 import { X, Plus, Trash2 } from "lucide-react";
 
 export default function TabaotModal({ onClose }) {
@@ -8,19 +8,19 @@ export default function TabaotModal({ onClose }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    base44.entities.Tabaot.list().then(d => { setList(d); setLoading(false); });
+    db.Tabaot.list().then(d => { setList(d); setLoading(false); });
   }, []);
 
   const add = async () => {
     if (!form.plan_name) return;
-    const item = await base44.entities.Tabaot.create(form);
+    const item = await db.Tabaot.create(form);
     setList(p => [...p, item]);
     setForm({ quarter: "", plan_name: "", instructions_url: "", note: "" });
   };
 
   const del = async (id) => {
     if (!confirm("למחוק?")) return;
-    await base44.entities.Tabaot.delete(id);
+    await db.Tabaot.delete(id);
     setList(p => p.filter(x => x.id !== id));
   };
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
+import { db } from "@/lib/db";
 import { X, Plus, Trash2, Upload, Loader2 } from "lucide-react";
 
 export default function IdeasModal({ onClose }) {
@@ -8,12 +9,12 @@ export default function IdeasModal({ onClose }) {
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
-    base44.entities.IdeaCard.list().then(setList);
+    db.IdeaCard.list().then(setList);
   }, []);
 
   const add = async (imageUrl) => {
     if (!name) return;
-    const item = await base44.entities.IdeaCard.create({ name, image_url: imageUrl || "" });
+    const item = await db.IdeaCard.create({ name, image_url: imageUrl || "" });
     setList(p => [...p, item]);
     setName("");
   };
@@ -29,7 +30,7 @@ export default function IdeasModal({ onClose }) {
 
   const del = async (id) => {
     if (!confirm("למחוק?")) return;
-    await base44.entities.IdeaCard.delete(id);
+    await db.IdeaCard.delete(id);
     setList(p => p.filter(x => x.id !== id));
   };
 
