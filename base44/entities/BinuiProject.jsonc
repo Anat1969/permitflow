@@ -1,0 +1,150 @@
+{
+  "name": "BinuiProject",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "\u05e9\u05dd \u05d4\u05e4\u05e8\u05d5\u05d9\u05e7\u05d8"
+    },
+    "category": {
+      "type": "string",
+      "title": "\u05e7\u05d8\u05d2\u05d5\u05e8\u05d9\u05d4",
+      "enum": [
+        "\u05ea\u05db\u05e0\u05d5\u05df",
+        "\u05d1\u05d9\u05e0\u05d5\u05d9",
+        "\u05e8\u05d9\u05e9\u05d5\u05d9"
+      ]
+    },
+    "sub": {
+      "type": "string",
+      "title": "\u05ea\u05ea-\u05e7\u05d8\u05d2\u05d5\u05e8\u05d9\u05d4"
+    },
+    "status": {
+      "type": "string",
+      "title": "\u05e1\u05d8\u05d8\u05d5\u05e1",
+      "enum": [
+        "planning",
+        "inprogress",
+        "review",
+        "done"
+      ],
+      "default": "planning"
+    },
+    "created": {
+      "type": "string",
+      "title": "\u05ea\u05d0\u05e8\u05d9\u05da \u05d9\u05e6\u05d9\u05e8\u05d4"
+    },
+    "note": {
+      "type": "string",
+      "title": "\u05d7\u05d5\u05d5\u05ea \u05d3\u05e2\u05ea"
+    },
+    "history": {
+      "type": "array",
+      "title": "\u05d4\u05d9\u05e1\u05d8\u05d5\u05e8\u05d9\u05d4",
+      "items": {
+        "type": "object"
+      }
+    },
+    "architect": {
+      "type": "string",
+      "title": "\u05d0\u05d3\u05e8\u05d9\u05db\u05dc"
+    },
+    "architect_phone": {
+      "type": "string",
+      "title": "\u05d8\u05dc\u05e4\u05d5\u05df \u05d0\u05d3\u05e8\u05d9\u05db\u05dc"
+    },
+    "architect_email": {
+      "type": "string",
+      "title": "\u05de\u05d9\u05d9\u05dc \u05d0\u05d3\u05e8\u05d9\u05db\u05dc"
+    },
+    "architect_address": {
+      "type": "string",
+      "title": "\u05db\u05ea\u05d5\u05d1\u05ea \u05d0\u05d3\u05e8\u05d9\u05db\u05dc"
+    },
+    "manager": {
+      "type": "string",
+      "title": "\u05de\u05e0\u05d4\u05dc"
+    },
+    "manager_phone": {
+      "type": "string",
+      "title": "\u05d8\u05dc\u05e4\u05d5\u05df \u05de\u05e0\u05d4\u05dc"
+    },
+    "manager_email": {
+      "type": "string",
+      "title": "\u05de\u05d9\u05d9\u05dc \u05de\u05e0\u05d4\u05dc"
+    },
+    "manager_address": {
+      "type": "string",
+      "title": "\u05db\u05ea\u05d5\u05d1\u05ea \u05de\u05e0\u05d4\u05dc"
+    },
+    "developer": {
+      "type": "string",
+      "title": "\u05d9\u05d6\u05dd"
+    },
+    "developer_phone": {
+      "type": "string",
+      "title": "\u05d8\u05dc\u05e4\u05d5\u05df \u05d9\u05d6\u05dd"
+    },
+    "developer_email": {
+      "type": "string",
+      "title": "\u05de\u05d9\u05d9\u05dc \u05d9\u05d6\u05dd"
+    },
+    "developer_address": {
+      "type": "string",
+      "title": "\u05db\u05ea\u05d5\u05d1\u05ea \u05d9\u05d6\u05dd"
+    },
+    "project_date": {
+      "type": "string",
+      "title": "\u05ea\u05d0\u05e8\u05d9\u05da"
+    },
+    "quarter": {
+      "type": "string",
+      "title": "\u05e8\u05d5\u05d1\u05e2"
+    },
+    "street": {
+      "type": "string",
+      "title": "\u05db\u05ea\u05d5\u05d1\u05ea"
+    },
+    "block": {
+      "type": "string",
+      "title": "\u05d2\u05d5\u05e9"
+    },
+    "parcel": {
+      "type": "string",
+      "title": "\u05d7\u05dc\u05e7\u05d4"
+    },
+    "plan_overall": {
+      "type": "string",
+      "title": "\u05de\u05e1\u05e4\u05e8 \u05ea\u05d5\u05db\u05e0\u05d9\u05ea"
+    },
+    "plan_detail": {
+      "type": "string",
+      "title": "\u05de\u05e1\u05e4\u05e8 \u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d1\u05d9\u05e0\u05d5\u05d9"
+    },
+    "image_tashrit": {
+      "type": "string",
+      "format": "uri",
+      "title": "\u05ea\u05e9\u05e8\u05d9\u05d8"
+    },
+    "image_tza": {
+      "type": "string",
+      "format": "uri",
+      "title": "\u05e6.\u05d0"
+    },
+    "image_hadmaya": {
+      "type": "string",
+      "format": "uri",
+      "title": "\u05d4\u05d3\u05de\u05d9\u05d9\u05d4"
+    },
+    "consultant_notes": {
+      "type": "string",
+      "title": "\u05d4\u05e2\u05e8\u05d5\u05ea \u05d9\u05d5\u05e2\u05e6\u05d9\u05dd"
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "sub",
+    "status"
+  ]
+}
