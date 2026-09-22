@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { base44 } from '@/api/base44Client';
+import { uploadFile } from "@/lib/storage";
 import { Upload, X, Loader2 } from 'lucide-react';
 
 const categories = ["בטיחות אש", "נגישות", "בידוד תרמי", "בטיחות מבנית", "אינסטלציה", "חשמל", "איכות הסביבה", "תכנון ובנייה", "אחר"];
@@ -32,7 +32,7 @@ export default function StandardForm({ standard, onSubmit, onCancel }) {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    const { file_url } = await uploadFile({ file });
     setForm(prev => ({ ...prev, image_url: file_url }));
     setUploading(false);
   };

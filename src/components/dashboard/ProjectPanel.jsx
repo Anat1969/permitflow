@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { X, Plus, Trash2, Search } from "lucide-react";
 import { db } from "@/lib/db";
-import StatusBadge from "@/components/common/StatusBadge";
 import { STATUS_CONFIG, getToday, addHistoryEntry } from "@/utils/projectConfig";
 
 export default function ProjectPanel({ domainCfg, category, sub, onClose, onRefresh }) {

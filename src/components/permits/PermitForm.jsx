@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { base44 } from '@/api/base44Client';
+import { uploadFile } from "@/lib/storage";
 import { Upload, X, Loader2 } from 'lucide-react';
 
 const permitTypes = ["היתר בנייה", "היתר שימוש חורג", 'היתר תמ"א 38', "היתר הריסה", "היתר שינויים", "רישיון עסק"];
@@ -46,7 +46,7 @@ export default function PermitForm({ permit, onSubmit, onCancel }) {
     setUploading(true);
     const urls = [];
     for (const file of files) {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      const { file_url } = await uploadFile({ file });
       urls.push(file_url);
     }
     setForm(prev => ({ ...prev, [field]: [...(prev[field] || []), ...urls] }));

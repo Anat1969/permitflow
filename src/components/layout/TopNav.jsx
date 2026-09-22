@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Printer, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import TabaotModal from "@/components/modals/TabaotModal";
 import LinksModal from "@/components/modals/LinksModal";
 import IdeasModal from "@/components/modals/IdeasModal";

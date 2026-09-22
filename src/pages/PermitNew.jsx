@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { base44 } from '@/api/base44Client';
+import { db } from "@/lib/db";
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PermitForm from '../components/permits/PermitForm';
@@ -8,7 +8,7 @@ export default function PermitNew() {
   const navigate = useNavigate();
 
   const handleCreate = async (data) => {
-    await base44.entities.Permit.create(data);
+    await db.Permit.create(data);
     navigate('/permits');
   };
 

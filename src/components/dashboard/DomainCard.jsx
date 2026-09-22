@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { STATUS_CONFIG } from "@/utils/projectConfig";
 
 export default function DomainCard({ domainCfg, projects, onSubClick }) {
   const total = projects.length;

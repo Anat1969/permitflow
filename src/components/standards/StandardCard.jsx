@@ -1,4 +1,4 @@
-import { ExternalLink, Shield, ShieldCheck } from 'lucide-react';
+import { ExternalLink, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const categoryColors = {

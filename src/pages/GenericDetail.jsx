@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { base44 } from "@/api/base44Client";
+import { uploadFile } from "@/lib/storage";
 import { db } from "@/lib/db";
 import TopNav from "@/components/layout/TopNav";
-import { STATUS_CONFIG, DOMAIN_CONFIG, getToday, addHistoryEntry } from "@/utils/projectConfig";
+import { STATUS_CONFIG, DOMAIN_CONFIG, addHistoryEntry } from "@/utils/projectConfig";
 import { ArrowRight, Save, Trash2, Loader2, Upload, ExternalLink } from "lucide-react";
 import EmailModal from "@/components/modals/EmailModal";
 
@@ -47,14 +47,14 @@ export default function GenericDetail({ domainId }) {
   const uploadImage = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    const { file_url } = await uploadFile({ file });
     update("image", file_url);
   };
 
   const uploadAttachment = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    const { file_url } = await uploadFile({ file });
     const att = await db.ProjectAttachment.create({ project_type: "generic", project_id: id, name: file.name, file_url });
     setAttachments(p => [...p, att]);
   };

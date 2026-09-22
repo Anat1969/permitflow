@@ -1,39 +1,20 @@
-**Welcome to your Base44 project** 
+# PermitFlow — גרסה עצמאית (ללא Base44)
 
-**About**
+האפליקציה רצה ישירות מול Supabase (מסד נתונים + אחסון קבצים) ומתפרסמת אוטומטית ב-GitHub Pages.
 
-View and Edit  your app on [Base44.com](http://Base44.com) 
+**כתובת האפליקציה:** https://anat1969.github.io/permitflow/
 
-This project contains everything you need to run your app locally.
+## איך זה עובד
+- כל דחיפה (push) לענף `standalone` בונה ומפרסמת את האתר מחדש (GitHub Actions → `.github/workflows/deploy.yml`).
+- הנתונים: `src/lib/db.js` · הקבצים: `src/lib/storage.js` (דלי `project-files`) · החיבור: `src/lib/supabase.js`.
 
-**Edit the code in your local development environment**
-
-Any change pushed to the repo will also be reflected in the Base44 Builder.
-
-**Prerequisites:** 
-
-1. Clone the repository using the project's Git URL 
-2. Navigate to the project directory
-3. Install dependencies: `npm install`
-4. Create an `.env.local` file and set the right environment variables
-
+## הרצה מקומית
 ```
-VITE_BASE44_APP_ID=your_app_id
-VITE_BASE44_APP_BASE_URL=your_backend_url
-
-e.g.
-VITE_BASE44_APP_ID=cbef744a8545c389ef439ea6
-VITE_BASE44_APP_BASE_URL=https://my-to-do-list-81bfaad7.base44.app
+npm install
+npm run dev
 ```
-
-Run the app: `npm run dev`
-
-**Publish your changes**
-
-Open [Base44.com](http://Base44.com) and click on Publish.
-
-**Docs & Support**
-
-Documentation: [https://docs.base44.com/Integrations/Using-GitHub](https://docs.base44.com/Integrations/Using-GitHub)
-
-Support: [https://app.base44.com/support](https://app.base44.com/support)
+אפשר להחליף פרויקט Supabase דרך קובץ `.env.local`:
+```
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_ANON_KEY=...
+```

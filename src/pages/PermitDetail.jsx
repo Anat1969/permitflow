@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { base44 } from '@/api/base44Client';
+import { db } from "@/lib/db";
 import { ArrowRight, Edit2, Trash2, MapPin, User, Phone, Calendar, Ruler, Wallet, Building, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -19,7 +19,7 @@ export default function PermitDetail() {
   const [editing, setEditing] = useState(false);
 
   const loadPermit = async () => {
-    const permits = await base44.entities.Permit.filter({ id });
+    const permits = await db.Permit.filter({ id });
     if (permits.length > 0) {
       setPermit(permits[0]);
     }
@@ -31,13 +31,13 @@ export default function PermitDetail() {
   }, [id]);
 
   const handleUpdate = async (data) => {
-    await base44.entities.Permit.update(id, data);
+    await db.Permit.update(id, data);
     setEditing(false);
     loadPermit();
   };
 
   const handleDelete = async () => {
-    await base44.entities.Permit.delete(id);
+    await db.Permit.delete(id);
     navigate('/permits');
   };
 

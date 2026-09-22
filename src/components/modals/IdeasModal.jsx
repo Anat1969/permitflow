@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { base44 } from "@/api/base44Client";
+import { uploadFile } from "@/lib/storage";
 import { db } from "@/lib/db";
 import { X, Plus, Trash2, Upload, Loader2 } from "lucide-react";
 
@@ -23,7 +23,7 @@ export default function IdeasModal({ onClose }) {
     const file = e.target.files[0];
     if (!file) return;
     setUploading(true);
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    const { file_url } = await uploadFile({ file });
     await add(file_url);
     setUploading(false);
   };

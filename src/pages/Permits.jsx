@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { base44 } from '@/api/base44Client';
+import { db } from "@/lib/db";
 import { Plus, Search, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,7 +17,7 @@ export default function Permits() {
 
   useEffect(() => {
     const load = async () => {
-      const data = await base44.entities.Permit.list('-updated_date', 100);
+      const data = await db.Permit.list('-updated_date', 100);
       setPermits(data);
       setLoading(false);
     };

@@ -1,6 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, FileText, BookOpen, LogOut } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -51,7 +50,7 @@ export default function AppLayout() {
 
             {/* Logout */}
             <button
-              onClick={() => base44.auth.logout()}
+              onClick={() => { window.location.href = import.meta.env.BASE_URL; }}
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm transition-colors"
             >
               <LogOut className="w-4 h-4" />

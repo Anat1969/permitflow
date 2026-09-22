@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
+import { db } from "@/lib/db";
 import { Search, Plus, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,7 +18,7 @@ export default function Standards() {
   const [showForm, setShowForm] = useState(false);
 
   const load = async () => {
-    const data = await base44.entities.Standard.list('-updated_date', 100);
+    const data = await db.Standard.list('-updated_date', 100);
     setStandards(data);
     setLoading(false);
   };
@@ -37,7 +37,7 @@ export default function Standards() {
   });
 
   const handleCreate = async (data) => {
-    await base44.entities.Standard.create(data);
+    await db.Standard.create(data);
     setShowForm(false);
     load();
   };
